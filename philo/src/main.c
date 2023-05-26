@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:15:02 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/05/26 15:27:52 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:34:11 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,22 @@
 
 #include "philo.h"
 
-int	usage(const char *p_name)
+int	usage(const char *prog_name)
 {
-	printf("Usage: %s nb_philo time_to_die time_to_eat", p_name);
+	printf("Usage: %s nb_philo time_to_die time_to_eat", prog_name);
 	printf(" time_to_sleep [nb_times_must_eat]\n");
 	return (1);
 }
 
 int	main(int ac, char *av[])
 {
+	int	err;
+	t_philo			*philos;
+	t_philo_infos	infos;
+
+	err = 0;
 	if (ac < 5 || ac > 6)
 		return (usage(av[0]));
+	if (parse_args(av, *info))
 	return (0);
 }
