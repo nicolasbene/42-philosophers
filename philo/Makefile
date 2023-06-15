@@ -1,49 +1,72 @@
-NAME		= philo
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/31 13:49:07 by nibenoit          #+#    #+#              #
+#    Updated: 2023/06/15 17:38:10 by nibenoit         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS_FILES	= main.c
-
-HEADER_FILE	= philo.h
-
-SRCS_DIR	= ./srcs/
-INC_DIR		= ./includes/
-
-LIBFT		= ./libft/libft.a
-LIBFT_PATH	= ./libft
-
-SRCS		= $(addprefix ${SRCS_DIR}, ${SRCS_FILES})
-OBJS		= ${SRCS:.c=.o}
-HEADER		= $(addprefix ${INC_DIR}, ${HEADER_FILE})
-
+### COMPILATION ###
 CC			= cc
-CC_FLAGS	= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -pthread -g
 
-RM			= rm -f
+### EXECUTABLE ###
+NAME		= philo
+ARGS		= 0
 
-%.o : %.c	${HEADER}
-			${CC} ${CC_FLAGS} -I${INC_DIR} -c $< -o $@
+### INCLUDES ###
+SRCS_DIR	= src
+INC_DIR		= incl
 
-all:		${NAME}
+### SOURCE FILES ###
+SRCS_FILES	=	main.c \
+				parse.c \
+				utils.c \
+				error.c \
+				philo_utils.c \
+				thread.c \
+				philo_routine.c \
+				time.c
 
-${NAME}:	${OBJS}
-			${CC} ${CC_FLAGS} -I${INC_DIR} -o ${NAME} ${OBJS}
-			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+### HEADER FILES ###
+HEADER_FILE	= philo.h
+HEADER		= $(addprefix ${INC_DIR}/, ${HEADER_FILE})
 
-clean:
-			make -C clean
-			${RM} ${OBJS} ${BONUS_OBJS}
-			@echo "$(YELLOW)object files deleted!$(DEFAULT)"
+### OBJECTS ###
+SRCS		= $(addprefix ${SRCS_DIR}/, ${SRCS_FILES})
+OBJS		= ${SRCS:.c=.o}
 
-fclean:		clean
-			make -C fclean
-			${RM} ${NAME} ${NAME_BONUS}
-			@echo "$(RED)all deleted!$(DEFAULT)"
-
-re:			fclean all
-
-.PHONY: 	all clean fclean re bonus
-
-#COLORS
+### COLORS ###
 RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 DEFAULT = \033[0m
+
+### OTHERS ###
+RM			= rm -f
+
+### RULES ###
+%.o : %.c	${HEADER}
+			${CC} ${CFLAGS} -I${INC_DIR} -c $< -o $@
+
+all:		${NAME}
+
+${NAME}:	${OBJS}
+			${CC} ${CFLAGS} -I${INC_DIR} -o ${NAME} ${OBJS}
+			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+
+clean:
+	@echo "$(NAME): $(RED)Supressing object files$(RESET)"
+	@rm -rf $(OBJS)
+
+fclean:	clean
+	@echo "$(NAME): $(RED)Supressing program file$(RESET)"
+	@rm -f $(NAME)
+
+re:			fclean all
+
+.PHONY: 	all clean fclean re bonus

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 17:30:44 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/05/26 17:31:54 by nibenoit         ###   ########.fr       */
+/*   Created: 2023/06/14 18:19:45 by nibenoit          #+#    #+#             */
+/*   Updated: 2023/06/14 18:19:47 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	custom_atoi(char *s, int *err)
 	int		sign;
 	long	n;
 
-	*err = 0;
+	*err = ERROR;
 	if (!s)
 		return (0);
 	i = 0;
@@ -41,7 +41,7 @@ static int	custom_atoi(char *s, int *err)
 	if (s[i] != 0 || i == 0 || n > INT_MAX || n < INT_MIN)
 		return (0);
 	if (n > 0)
-		*err = 0;
+		*err = ALL_GOOD;
 	return (n);
 }
 
@@ -78,19 +78,19 @@ int	parse_args(char **args, t_philo_infos *infos)
 	infos->eat_times = 0;
 	infos->over = FALSE;
 	if (pthread_mutex_init(&infos->over_mutex, NULL) == -1)
-		return (4);
+		return (MUTEX_INIT_ERROR);
 	if (pthread_mutex_init(&infos->eat_times_mutex, NULL) == -1)
-		return (4);
+		return (MUTEX_INIT_ERROR);
 	infos->must_eat_times = -1;
-	err[4] = 0;
+	err[4] = ALL_GOOD;
 	if (args[4])
 		infos->must_eat_times = custom_atoi(args[4], &err[4]);
 	i = 0;
 	while (i < 5)
-		if (err[i++] == 1)
-			return (2);
+		if (err[i++] == ERROR)
+			return (PARSE_ERROR);
 	infos->forks = get_forks(infos->nb_philo);
 	if (!infos->forks)
-		return (3);
-	return (0);
+		return (FORK_MALLOC_ERROR);
+	return (ALL_GOOD);
 }
