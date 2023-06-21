@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:19:59 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/06/15 15:49:26 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:05:13 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ t_philo	get_philo(int id, t_philo_infos *infos)
 	if (infos->nb_philo > 1)
 		philo.fork_right = &infos->forks[id % infos->nb_philo];
 	return (philo);
+}
+
+void	check_max_eat(t_philo_infos *infos)
+{
+	pthread_mutex_lock(&infos->eat_times_mutex);
+	if (infos->must_eat_times >= 0 && infos->eat_times == infos->nb_philo)
+	{
+		pthread_mutex_lock(&infos->over_mutex);
+		infos->over = TRUE;
+		pthread_mutex_unlock(&infos->over_mutex);
+	}
+	pthread_mutex_unlock(&infos->eat_times_mutex);
 }
 
 int	someone_died(t_philo_infos *infos)

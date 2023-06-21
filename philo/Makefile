@@ -6,7 +6,7 @@
 #    By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 13:49:07 by nibenoit          #+#    #+#              #
-#    Updated: 2023/06/15 17:38:10 by nibenoit         ###   ########.fr        #
+#    Updated: 2023/06/21 18:15:52 by nibenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS_FILES	=	main.c \
 				philo_utils.c \
 				thread.c \
 				philo_routine.c \
-				time.c
+				time.c \
+				philo_action.c
 
 ### HEADER FILES ###
 HEADER_FILE	= philo.h
@@ -60,11 +61,11 @@ ${NAME}:	${OBJS}
 			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 clean:
-	@echo "$(NAME): $(RED)Supressing object files$(RESET)"
+	@echo "$(NAME): $(RED)Supressing object files"
 	@rm -rf $(OBJS)
 
 fclean:	clean
-	@echo "$(NAME): $(RED)Supressing program file$(RESET)"
+	@echo "$(NAME): $(RED)Supressing program file"
 	@rm -f $(NAME)
 
 re:			fclean all

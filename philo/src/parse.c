@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:19:45 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/06/14 18:19:47 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:19:08 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	parse_args(char **args, t_philo_infos *infos)
 	infos->time_to_sleep = custom_atoi(args[3], &err[3]);
 	infos->eat_times = 0;
 	infos->over = FALSE;
-	if (pthread_mutex_init(&infos->over_mutex, NULL) == -1)
+	if (pthread_mutex_init(&infos->over_mutex, NULL) != 0)
 		return (MUTEX_INIT_ERROR);
-	if (pthread_mutex_init(&infos->eat_times_mutex, NULL) == -1)
+	if (pthread_mutex_init(&infos->eat_times_mutex, NULL) != 0)
 		return (MUTEX_INIT_ERROR);
 	infos->must_eat_times = -1;
 	err[4] = ALL_GOOD;

@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:26:15 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/06/15 10:47:21 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:17:18 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-# ifndef T_BOOL_H
-#  define TRUE 1
-#  define FALSE 0
-# endif
+# define TRUE 1
+# define FALSE 0
 
 # define INFO_MSG "%4ld \033[1;37m%d\033[0m %s\n"
 
@@ -92,5 +90,9 @@ int		init_thread(t_philo_infos *infos, t_philo *philos);
 int		init_philosophers(t_philo_infos *infos, t_philo **philos_ptr);
 
 long	get_time(long start);
+
+void	philo_eat(t_philo *philo, t_philo_infos *infos);
+void	philo_sleep(t_philo *philo, t_philo_infos *infos);
+void	philo_think(t_philo *philo, t_philo_infos *infos);
 
 #endif

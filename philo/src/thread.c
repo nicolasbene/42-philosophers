@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:20:06 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/06/15 15:35:55 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:18:55 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	init_thread(t_philo_infos *infos, t_philo *philos)
 	i = 0;
 	while (i < infos->nb_philo)
 	{
-		if (pthread_create(&threads[i] , NULL, &philo_routine, &philos[i]) == -1)
+		if (pthread_create(&threads[i], NULL,
+				&philo_routine, &philos[i]) != 0)
 			return (THREAD_INIT_ERROR);
 		i++;
 	}
 	i = 0;
 	while (i < infos->nb_philo)
 	{
-		if (pthread_join(threads[i], NULL) == -1)
+		if (pthread_join(threads[i], NULL) != 0)
 			return (THREAD_INIT_ERROR);
 		i++;
 	}
