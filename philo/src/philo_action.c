@@ -6,7 +6,7 @@
 /*   By: nibenoit <nibenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:15:30 by nibenoit          #+#    #+#             */
-/*   Updated: 2023/06/22 16:31:42 by nibenoit         ###   ########.fr       */
+/*   Updated: 2023/06/24 16:23:56 by nibenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ static void	philo_take_forks(t_philo *philo, t_philo_infos *infos,
 {
 	pthread_mutex_lock(first_fork);
 	print(infos, FORK_MESSAGE, philo->id);
-	if (!second_fork)
-	{
-		ft_usleep(infos->time_to_die * 2, infos);
-		return ;
-	}
 	pthread_mutex_lock(second_fork);
 	print(infos, FORK_MESSAGE, philo->id);
 	print(infos, EAT_MESSAGE, philo->id);
